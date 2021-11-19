@@ -30,6 +30,9 @@ Podemos añadir el flag -c para saber el número de líneas que hay y que, en es
 
 ![lineas terminadas en o](https://user-images.githubusercontent.com/92091175/140639718-01cd4c1c-2ad3-4b7f-9757-53f563722d0d.png)
 
+### COMENTARIOS
+Muy bien 0,42/0,42
+
 **2.** Al igual que en el caso anterior, utilizaremos $, pero en este caso precedida de [oa]:
 
 `grep -E [oa]$ aquella_voluntad.txt`
@@ -37,6 +40,9 @@ Podemos añadir el flag -c para saber el número de líneas que hay y que, en es
 ![líneas que terminan en oa](https://user-images.githubusercontent.com/92091175/140639876-d6a7e363-89ae-473f-af53-98c49f5e2f6c.png)
 
 Vemos que el número de líneas asciende a 118.
+
+### COMENTARIOS
+Muy bien 0,42/0,42
 
 **3.** 
 En awk, NR es el numero de lineas en el fichero a procesar. Si utilizamos % estamos haciendo una operación módulo, es decir, obteniendo el resto de una división. Por tanto, con la orden `'NR%2==0'`, le estamos diciendo a awk que ejecute la acción solo si el número de línea dividido entre dos es igual a cero, esto es, estamos seleccionando las líneas pares. Con un pipe, ejecutamos el mismo filtro del apartado anterior.
@@ -47,11 +53,18 @@ Añadimos `-c`para saber el número total de líneas: 57 (casi la mitad que las 
 
 ![Captura de pantalla de 2021-11-07 11-09-01](https://user-images.githubusercontent.com/92091175/140640745-fba9010f-2ccb-4086-b2ca-22bc9ea5a9c8.png)
 
+### COMENTARIOS
+Aunque el ejercicio pedía usar grep su respuesta es correcta y corta. Muy bien 0,42/0,42
+
 **4.** Buscamos en la chuleta de expresiones regulares cómo delimitamos las palabras, y encontramos `\b`. Como sabemos que tiene que empezar y terminar por s, y que entre medias puede tener cualquier caracter o caracteres, utilizamos `'\bs[a-z]*s\b'`. Además, con el flag -o le decimos que nos saque la parte que coincide con el patrón, para luego crear un pipeline con `sort` y así sacar ordenadas todas las palabras que coincidan:
 
 `grep -o -E '\bs[a-z]*s\b' aquella_voluntad.txt | sort`
 
 ![palabras que empiezan y terminan por s](https://user-images.githubusercontent.com/92091175/140641738-bb1cb224-775a-4f93-9988-3cf763f99217.png)
+
+### COMENTARIOS
+
+El resultado es correcto porque en el poema no había ninguna palabra con esas condiciones que tuviera una letra mayúscula. Por si acaso no estaría de más usar el flag -i de grep. Y se puede usar uniq -c despúes de sort para mejorar la presentación del resultado. Muy bien 0,41/0,42
 
 **5.** Seguimos utilizando `\b`, y añadimos `[^t]` para indicar que no queremos que nos busque palabras que comiencen por t. Con el flag `-n` nos muestra el número de línea en el que está cada palabra que nos encuentra de acuerdo con el criterio establecido. Así podemos comprobar que nos da el resultado ordenado por filas. Adicionalmente, le agregamos a la expresión regular `\s` para que tenga en cuenta el espacio antes de la palabra y comience a buscar a partir de la primera letra.
 
@@ -60,13 +73,20 @@ Añadimos `-c`para saber el número total de líneas: 57 (casi la mitad que las 
 
 ![grep](https://user-images.githubusercontent.com/92113066/140740660-c345cdbe-5b6c-4efe-9092-bea3073732fe.png)
 
+### COMENTARIOS
+
+Al usar el \b en la expresión regular no hace falta usar el indicador de espacio \s porque el \b ya delimita la cadena. Parece que faltan palabras en las lista. Muy bien 0,41/0,42
+
 **6.** Para encontrar las palabras que comienzan y terminan por la misma letra empleamos el comando 
 
 `grep -E -o -i '\b(^[a-z])[a-z]+\1\b' aquella_voluntad.txt` donde con `\1` hacemos referencia al grupo de captura `(^[a-z])` que indica la letra de inicio de la palabra.
 
 ![grep3](https://user-images.githubusercontent.com/92113066/141787111-efba0c8c-f4b6-4a6a-835f-713de46da2bb.png)
 
+### COMENTARIOS 
+Se podría haber usado el flag -w de grep. Muy bien 0,42/0,42
 
+Total 2,3/2,5
 
 ## Ejercicio 2
 ¿Cuántos gene_ids existen con varios ceros seguidos en los dos gtfs (Humano y Drosophila)?. ¿Cuáles son? ¿Cuántas veces aparece cada uno en el .gtf dado?
